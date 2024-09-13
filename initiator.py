@@ -1,6 +1,6 @@
 import os
 import json
-from time import sleep
+from time to sleep
 from telethon.sync import TelegramClient, functions, types
 from telethon.tl.functions.channels import JoinChannelRequest, InviteToChannelRequest
 from telethon.errors import FloodWaitError
@@ -11,7 +11,7 @@ from bots.base.base import logging
 
 
 def username(dialog):
-    username = str(getattr(dialog.message.chat, 'username', '_')).lower()
+    username = str(getting(dialog.message.chat, 'username', '_')).lower()
     return username
 
 
@@ -21,7 +21,7 @@ def catch_flood_error(func):
             try:
                 return func(*args, **kwargs)
             except FloodWaitError as e:
-                logging.INFO(f'Флудим, подождем {e.seconds} секунд')
+                logging.INFO(f'Flooding, let's wait {e.seconds} seconds')
                 sleep(e.seconds)
     return wrapper
 
@@ -73,7 +73,7 @@ class Initiator(TelegramClient):
         else:
             kwargs.pop('from_bot_menu')
             web_app = self(functions.messages.RequestAppWebViewRequest(**kwargs, write_allowed=True))
-        auth_data = web_app.url.split('#tgWebAppData=')[1].replace("%3D","=").split('&tgWebAppVersion=')[0].replace("%26","&")
+        auth_data = web_app.url.split('#tgWebAppData=')[1].replace("%3D", "=").split('&tgWebAppVersion=')[0].replace("%26", "&")
         user = auth_data.split("user=")[1].split("&")[0]
         return {"userId": self._self_id, "authData": auth_data.replace(user, unquote(user)), 'url': web_app.url}
 
